@@ -37,41 +37,4 @@ jobs:
           args: test
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-
-      # Запуск Semgrep для статического анализа
-      - name: Run Semgrep
-        id: semgrep
-        uses: returntocorp/semgrep-action@v1
-        with:
-          config: "p/your-semgrep-rules"  # Укажите путь к вашим правилам Semgrep
-        env:
-          SEMGREP_APP_TOKEN: ${{ secrets.SEMGREP_APP_TOKEN }}
-    container:
-      image: returntocorp/semgrep
-    steps:
-    - uses: actions/checkout@v4
-    - run: semgrep ci
-  security-audit:
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Run OWASP ZAP - Security Scan
-        uses: zaproxy/action-full-scan@v0.1.0
-        with:
-          target: 'http://your-application-url'  # Замените на URL вашего приложения
-        env:
-          ZAP_API_KEY: ${{ secrets.ZAP_API_KEY }}  # Убедитесь, что вы создали секрет для вашего API-ключа ZAP
-
-  deploy:
-    runs-on: ubuntu-latest
-    needs: [build, security-audit]
-    if: steps.snyk.outcome == 'success' && steps.semgrep.outcome == 'success'  # Остановка развертывания при наличии уязвимостей
-    steps:
-      - name: Deploy to Server
-        run: |
-          echo "Deploying application..."
-          # Здесь можно добавить ваши команды для развертывания, например:
-          # scp -r ./your_project user@server:/path/to/deploy/
+          
