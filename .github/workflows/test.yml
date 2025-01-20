@@ -1,0 +1,31 @@
+name: Test-security
+
+on:
+ push:
+  branches:
+    - main
+    - master
+    - release/
+jobs:
+  my_test:
+
+   runs-on: ubuntu-latest
+
+   steps:
+   - uses: actions/checkout@v4.2.2
+   - name: Checkout
+     run: echo "Test"
+   
+   
+  semgrep:
+    name: semgrep/ci
+    runs-on: ubuntu-20.04
+    env:
+      SEMGREP_APP_TOKEN: ${{ secrets.SEMGREP_APP_TOKEN }}
+    container:
+      image: returntocorp/semgrep
+    steps:
+    - uses: actions/checkout@v4
+    - run: semgrep ci
+
+    
