@@ -25,16 +25,17 @@ jobs:
     - run: semgrep ci
 
   Checkout:
-     name: Checkout
-     runs-on: ubuntu-20.04
-     uses: actions/checkout@v4.2.2
+    name: Checkout
+    runs-on: ubuntu-20.04
+    steps:
+     - uses: actions/checkout@v4.2.2
     
   Python-up:
     name: Set Setup Python
     runs-on: ubuntu-22.04
     steps:
-    - uses: actions/setup-python@v5.3.0
-    with:
+     - uses: actions/setup-python@v5.3.0
+     - with:
           python-version: '3.8'  # Укажите нужную версию Python
   Run-unit-tests: 
     runs-on: ubuntu-22.04
