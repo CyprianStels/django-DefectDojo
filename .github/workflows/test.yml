@@ -57,14 +57,14 @@ jobs:
       runs-on: ubuntu-latest
 
       steps:
-        - name: Checkout Repo
-        - uses: actions/checkout@v2
+       - name: Checkout Repo
+         uses: actions/checkout@v2
 
-        - name: Run pytest (pytest-django)
-          env:
-            PYTHONPATH: webapp/src/
-          uses: samwlms/pytest-django-action@1.9
-          with:
+       - name: Run pytest (pytest-django)
+         env:
+           PYTHONPATH: webapp/src/
+         uses: samwlms/pytest-django-action@1.9
+         with:
             args: pytest --ds=webapp.settings_prod -o python_files=tests.py -o django_find_project=false
        
 # Статический анализ безопасности с помощью Checkov GitHub Action
@@ -83,3 +83,4 @@ jobs:
           directory: example/examplea
           framework: terraform 
  
+
