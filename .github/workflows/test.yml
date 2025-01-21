@@ -32,7 +32,7 @@ jobs:
     
   Python-test:
    
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     strategy:
       max-parallel: 4
       matrix:
@@ -54,7 +54,7 @@ jobs:
 # Запуск тестов Django      
   
   Testing:
-      runs-on: ubuntu-latest
+      runs-on: ubuntu-20.04
 
       steps:
        - name: Checkout Repo
