@@ -25,12 +25,14 @@ jobs:
     - run: semgrep ci
 
   Checkout:
+    needs: semgrep 
     name: Checkout
     runs-on: ubuntu-20.04
     steps:
      - uses: actions/checkout@v4.2.2
   #
   Jscrambler:
+      needs: Checkov
       runs-on: ubuntu-latest
       permissions:
         contents: read
@@ -55,6 +57,7 @@ jobs:
             files-dest: .
   #
   Python-package:
+      needs: Jscrambler
       runs-on: ubuntu-latest
       strategy:
         fail-fast: false
@@ -81,7 +84,7 @@ jobs:
             pytest
 #
   Python-test:
-   
+    needs: Python-package
     runs-on: ubuntu-latest
     strategy:
       max-parallel: 4
@@ -104,6 +107,7 @@ jobs:
 # Запуск тестов Django      
   
   Testing:
+      needs: Python-test
       runs-on: ubuntu-latest
 
       steps:
@@ -119,6 +123,7 @@ jobs:
        
 # Статический анализ безопасности с помощью Checkov GitHub Action
   Checkov:
+      needs: Checkout
       runs-on: ubuntu-latest
       steps:
        - uses: actions/checkout@v4
@@ -133,4 +138,3 @@ jobs:
           directory: example/examplea
           framework: terraform 
  
-
