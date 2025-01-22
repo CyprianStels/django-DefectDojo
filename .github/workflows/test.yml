@@ -49,8 +49,7 @@ jobs:
           with:
             node-version: ${{ matrix.node-version }}
             cache: 'npm'
-            paths:
-              components/yarn.lock
+            paths: './components/yarn.lock'
         - run: npm ci
         - run: npm run build --if-present
         - run: npm test
@@ -149,4 +148,5 @@ jobs:
           directory: example/examplea
           framework: terraform 
  
+
 
