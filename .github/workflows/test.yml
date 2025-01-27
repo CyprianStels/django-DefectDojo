@@ -49,7 +49,7 @@ jobs:
           with:
             node-version: ${{ matrix.node-version }}
             cache: 'npm'
-            paths: './components/yarn.lock'
+            paths: '/components/yarn.lock'
         - run: npm ci
         - run: npm run build --if-present
         - run: npm test
@@ -67,12 +67,13 @@ jobs:
             files-dest: .
   #
   Python-package:
-      needs: Jscrambler
+      #needs: Jscrambler
+      needs: Checkov
       runs-on: ubuntu-latest
       strategy:
         fail-fast: false
         matrix:
-           python-version: ["3.9", "3.10", "3.11"]
+           python-version: ["3.9", "3.10", "3.13"]
 
       steps:
         - uses: actions/checkout@v4
@@ -94,12 +95,13 @@ jobs:
             pytest
 #
   Python-test:
-    needs: Python-package
+    #needs: Python-package
+    needs: Checkov
     runs-on: ubuntu-latest
     strategy:
       max-parallel: 4
       matrix:
-        python-version: [3.7, 3.8, 3.9]
+        python-version: [3.7, 3.8, 3.13]
 
     steps:
     - uses: actions/checkout@v4
@@ -117,7 +119,8 @@ jobs:
 # Запуск тестов Django      
   
   Testing:
-      needs: Python-test
+      #needs: Python-test
+      needs: Checkov
       runs-on: ubuntu-latest
 
       steps:
