@@ -97,7 +97,8 @@ jobs:
             pytest
 #
   Python-test:
-    needs: Python-package
+  #  needs: Python-package
+    needs: CodeQL
     runs-on: ubuntu-latest
     strategy:
       max-parallel: 4
@@ -120,7 +121,8 @@ jobs:
 # Запуск тестов Django      
   
   Testing:
-      needs: Python-test
+   #   needs: Python-test
+      needs: CodeQL
       runs-on: ubuntu-latest
 
       steps:
