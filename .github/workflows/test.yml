@@ -180,7 +180,7 @@ jobs:
             #rules_file_name: '.zap/rules.tsv'
             cmd_options:  '-a'
             #run: docker network create zapnet --net zapnet
-            #network: 'zapnet'
+            network: 'zapnet'
             
                     
  
