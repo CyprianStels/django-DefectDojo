@@ -167,10 +167,7 @@ jobs:
             #network: '--net zapnet'
         - name: Create Docker network
           run: docker network create zapnet
-          
-        - name: Pull ZAP Docker Image
-          run: docker pull ghcr.io/zaproxy/zaproxy:stable
-        
+      
         - name: ZAP Scan
           uses: zaproxy/action-full-scan@v0.12.0
           #uses: zap-full-scan.py -t <http://0.0.0.0:8080> [-a, -d]
