@@ -128,7 +128,15 @@ jobs:
           - uses: gitleaks/gitleaks-action@v2
             env:
               GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            with:
+              args: detect --source . --report-format json --report-path gitleaks-report.json
           
+          - name: Upload_GitLeaks_report
+          - uses: actions/upload-artifact@v4
+            with:
+                  name: gitleaks-report
+                  path: gitleaks-report.json
+                
                     
  
 
