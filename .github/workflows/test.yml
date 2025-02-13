@@ -130,9 +130,8 @@ jobs:
               GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
             with:
                # Убедитесь, что используете правильные параметры для gitleaks-action
-              config: .gitleaks.toml  # Укажите путь к вашему конфигурационному файлу, если он есть
-              report_format: json
-              report_path: gitleaks-report.json     
+             # config: .gitleaks.toml  # Укажите путь к вашему конфигурационному файлу, если он есть
+              report_format: 'gitleaks --repo=/path/to/repository --format=json '   
              
           - name: Upload_GitLeaks_report
             uses: actions/upload-artifact@v4
