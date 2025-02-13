@@ -129,13 +129,16 @@ jobs:
             env:
               GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
             with:
-              args: 'detect --source . --report-format json --report-path gitleaks-report.json'
-          
+              args: 'detect --source . --report-format json --report-path gitleaks-report.json'          
+             
           - name: Upload_GitLeaks_report
             uses: actions/upload-artifact@v4
             with:
-                  name: gitleaks-report
-                  path: gitleaks-report.json
+                 name: gitleaks-report
+                 path: gitleaks-report.json
+
+          - name: Display summary
+            run: echo "GitLeaks report uploaded. Check the artifacts for details."
                 
                     
  
