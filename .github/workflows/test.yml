@@ -116,7 +116,15 @@ jobs:
             cmd_options:  '-a'
             #run: docker network create zapnet --net zapnet
             #network: 'zapnet'
-            
+
+  #
+  Gitleaks:
+        runs-on: ubuntu-latest
+        name: secret-scanning
+        steps:
+              - name: Gitleaks
+                uses: gitleaks/gitleaks-action@v2.3.4
+          
                     
  
 
