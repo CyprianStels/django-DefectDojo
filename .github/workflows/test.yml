@@ -132,7 +132,7 @@ jobs:
               args: detect --source . --report-format json --report-path gitleaks-report.json
           
           - name: Upload_GitLeaks_report
-          - uses: actions/upload-artifact@v4
+            uses: actions/upload-artifact@v4
             with:
                   name: gitleaks-report
                   path: gitleaks-report.json
