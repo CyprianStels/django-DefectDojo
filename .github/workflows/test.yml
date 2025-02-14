@@ -128,20 +128,10 @@ jobs:
           - uses: gitleaks/gitleaks-action@v2 
             env:
               GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-            with:           
-                config: .gitleaks.toml  # Убедитесь, что у вас есть файл конфигурации gitleaks
-                format: json
-                output: gitleaks-report.json
-                path: .
-         
-          - name: Upload_GitLeaks_report
-            uses: actions/upload-artifact@v4
             with:
-                 name: gitleaks-report
-                 path: gitleaks-report.json
+              format: sarif
+              
 
-          - name: Display summary
-            run: echo "GitLeaks report uploaded. Check the artifacts for details."
                 
                     
  
