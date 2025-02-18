@@ -129,22 +129,22 @@ jobs:
             env:
               GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               GITLEAKS_ENABLE_UPLOAD_ARTIFACT: false
-             # GITLEAKS_ENABLE_COMMENTS: false
+              GITLEAKS_ENABLE_COMMENTS: false
               #shell: bash
               #run: gitleaks --repo=/path/to/repository --format=json
-          - name: Create Gitleaks report
-            run: |
-              mkdir -p gitleaks-report
-              echo "${{ steps.gitleaks.outputs.report }}" > gitleaks-report/report.json
-          - name: Split report into smaller parts
-            run: |
-              split -b 1M gitleaks-report/report.json gitleaks-report/part_ --additional-suffix=.json
+          #- name: Create Gitleaks report
+            #run: |
+            #  mkdir -p gitleaks-report
+           #   echo "${{ steps.gitleaks.outputs.report }}" > gitleaks-report/report.json
+          #- name: Split report into smaller parts
+            #run: |
+            #  split -b 1M gitleaks-report/report.json gitleaks-report/part_ --additional-suffix=.json
             #
-          - name: Upload Gitleaks report parts as artifacts
-            uses: actions/upload-artifact@v4
-            with:
-              name: gitleaks-report
-              path: gitleaks-report/* 
+          #- name: Upload Gitleaks report parts as artifacts
+            #uses: actions/upload-artifact@v4
+            #with:
+              #name: gitleaks-report
+              #path: gitleaks-report/* 
         
             
       
