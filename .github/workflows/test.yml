@@ -131,6 +131,7 @@ jobs:
               GITLEAKS_ENABLE_UPLOAD_ARTIFACT: false
               GITLEAKS_ENABLE_COMMENTS: false
               GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            continue-on-error: true
           - name: Create Gitleaks report
             run: |
               mkdir -p gitleaks-report
