@@ -129,10 +129,7 @@ jobs:
             env:
               GITLEAKS_ENABLE_UPLOAD_ARTIFACT: false
               GITLEAKS_ENABLE_COMMENTS: false
-              #GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-              #shell: bash
-             # run: gitleaks --repo=/path/to/repository --format=json
+              GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           - name: Create Gitleaks report
             run: |
               mkdir -p gitleaks-report
@@ -145,7 +142,7 @@ jobs:
             uses: actions/upload-artifact@v4
             with:
               name: gitleaks-report
-              path: gitleaks-report/* 
+              path: gitleaks/report/* 
         
             
       
