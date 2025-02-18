@@ -129,7 +129,7 @@ jobs:
             env:
               GITLEAKS_ENABLE_UPLOAD_ARTIFACT: false
               GITLEAKS_ENABLE_COMMENTS: false
-              GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              #GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
               #shell: bash
              # run: gitleaks --repo=/path/to/repository --format=json
