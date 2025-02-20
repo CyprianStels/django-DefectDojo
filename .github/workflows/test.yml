@@ -119,6 +119,7 @@ jobs:
 
   #
   Gitleaks:
+      needs: Checkout
       name: gitleaks
       runs-on: ubuntu-latest
       steps:
