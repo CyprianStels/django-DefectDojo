@@ -25,7 +25,7 @@ jobs:
     - run: semgrep ci
 
   Checkout:
-    needs: semgrep 
+   # needs: semgrep 
     name: Checkout
     runs-on: ubuntu-20.04
     steps:
@@ -90,6 +90,7 @@ jobs:
 
  #ZAP Advanced
   zap_scan:
+      needs: Checkout
       runs-on: ubuntu-latest
       name: Scan the webapplication
       steps:
