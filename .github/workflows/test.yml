@@ -167,7 +167,7 @@ jobs:
       name: Deploy Test    
       if: github.ref == 'refs/heads/master' && github.event_name == 'push'
       runs-on: ubuntu-latest
-      environment: Test
+      environment: test
       steps:
         - name: Deploy Test
           run: echo "Deploy Test"
