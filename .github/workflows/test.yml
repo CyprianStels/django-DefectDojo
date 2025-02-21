@@ -5,6 +5,7 @@ on:
     branches:
     - main
     - master
+    - Test
     - release/*
     paths:
     - .github/workflows/test.yml
@@ -160,6 +161,26 @@ jobs:
                 # To report GitHub Actions status checks
                 GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
             continue-on-error: true          
+    
+  Deploy_test:
+      needs: [Linter, semgrep, CodeQL]
+      name: Deploy Test    
+      if: github.ref == 'refs/heads/master' && github.event_name == 'push'
+      runs-on: ubuntu-latest
+      environment: Test
+      steps:
+        - name: Deploy Test
+          run: echo "Deploy Test"
+
+  Deploy_release:
+      needs: Deploy_test
+      name: Deploy release
+      runs-on: ubuntu-latest
+      timeout-minutes: 60
+      environment: release
+      steps: 
+         - name: Deploy release
+           run: echo "Deploy release"
       
             
               
