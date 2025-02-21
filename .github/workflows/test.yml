@@ -135,32 +135,32 @@ jobs:
               #GITLEAKS_ENABLE_COMMENTS: false
               GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
             #continue-on-error: true
-        
-  #Linter:  
-     #name: Lint
-     #runs-on: ubuntu-latest
+   #опционально     
+  Linter:  
+     name: Lint
+     runs-on: ubuntu-latest
 
-     #permissions:
-      #contents: read
-      #packages: read
+     permissions:
+      contents: read
+      packages: read
       # To report GitHub Actions status checks
-      #statuses: write
+      statuses: write
 
-     #steps:
-          #- uses: actions/checkout@v4
-            #with:
+     steps:
+          - uses: actions/checkout@v4
+            with:
             # super-linter needs the full git history to get the
             # list of files that changed across commits
-           #   fetch-depth: 0
+              fetch-depth: 0
   
-           # name: Super-linter
-          #- uses: super-linter/super-linter@v7.2.1 # x-release-please-version
-            #env:
-               # VALIDATE_ALL_CODEBASE: false
-              #  DEFAULT_BRANCH: "master"
+            name: Super-linter
+          - uses: super-linter/super-linter@v7.2.1 # x-release-please-version
+            env:
+                VALIDATE_ALL_CODEBASE: false
+                DEFAULT_BRANCH: "master"
                 # To report GitHub Actions status checks
-             #   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-            #continue-on-error: true          
+                GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            continue-on-error: true  # убрать после ручной настройки, если нужны тригеры от Super-linter          
     
   Deploy_test:
       needs: [Gitleaks, semgrep, CodeQL, zap_scan]
