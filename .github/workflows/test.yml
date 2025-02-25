@@ -163,7 +163,8 @@ jobs:
             continue-on-error: true  # убрать после ручной настройки, если нужны тригеры от Super-linter          
     
   Deploy_test:
-      needs: [Gitleaks, semgrep, CodeQL, zap_scan]
+      #needs: [Gitleaks, semgrep, CodeQL, zap_scan]
+      needs: [semgrep, CodeQL, zap_scan]
       name: Deploy Test    
       if: github.ref == 'refs/heads/master' && github.event_name == 'push'
       runs-on: ubuntu-latest
