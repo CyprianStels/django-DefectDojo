@@ -5,6 +5,7 @@ on:
     branches:
     - main
     - master
+    - Test
     - release/*
     paths:
     - .github/workflows/test.yml
@@ -25,7 +26,7 @@ jobs:
     - run: semgrep ci
 
   Checkout:
-    needs: semgrep 
+   # needs: semgrep 
     name: Checkout
     runs-on: ubuntu-20.04
     steps:
@@ -90,6 +91,7 @@ jobs:
 
  #ZAP Advanced
   zap_scan:
+      needs: Checkout
       runs-on: ubuntu-latest
       name: Scan the webapplication
       steps:
@@ -119,6 +121,7 @@ jobs:
 
   #
   Gitleaks:
+      needs: Checkout
       name: gitleaks
       runs-on: ubuntu-latest
       steps:
@@ -132,21 +135,7 @@ jobs:
               #GITLEAKS_ENABLE_COMMENTS: false
               GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
             continue-on-error: true
-          - name: Create Gitleaks report
-            run: |
-              mkdir -p gitleaks-report
-              echo "${{ steps.gitleaks.outputs.report }}" > gitleaks-report/report.json
-          - name: Split report into smaller parts
-            run: |
-              split -b 1M gitleaks-report/report.json gitleaks-report/part_ --additional-suffix=.json
-            #
-          - name: Upload Gitleaks report parts as artifacts
-            uses: actions/upload-artifact@v4
-            with:
-              name: gitleaks-report
-              path: gitleaks-report/part_* 
-        
-            
+   #опционально     
   Linter:  
      name: Lint
      runs-on: ubuntu-latest
@@ -171,10 +160,30 @@ jobs:
                 DEFAULT_BRANCH: "master"
                 # To report GitHub Actions status checks
                 GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-           # continue-on-error: true
-                    
+            continue-on-error: true  # убрать после ручной настройки, если нужны тригеры от Super-linter          
+    
+  Deploy_test:
+      needs: [Gitleaks, semgrep, CodeQL, zap_scan]
+      #needs: [semgrep, CodeQL, zap_scan]
+      name: Deploy Test    
+      if: github.ref == 'refs/heads/master' && github.event_name == 'push'
+      runs-on: ubuntu-latest
+      environment: test
+      steps:
+        - name: Deploy Test
+          run: echo "Deploy Test"
 
-                
+  Deploy_release:
+      needs: Deploy_test
+      name: Deploy release
+      runs-on: ubuntu-latest
+      timeout-minutes: 60
+      environment: release
+      steps: 
+         - name: Deploy release
+           run: echo "Deploy release"
+      
+            
                     
  
 
